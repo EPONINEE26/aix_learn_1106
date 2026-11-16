@@ -7,7 +7,7 @@ def genre(request):
     word = request.GET.get('word', '')
     qs = Board.objects.filter(genre=word)
     context = {'list':qs}
-    return render(request, 'search.html', context)
+    return render(request, 's_mlist.html', context)
 
 
 # 영화 제목 검색
@@ -15,7 +15,7 @@ def title(request):
     word = request.GET.get('word', '')
     qs = Board.objects.filter(title__icontains=word)
     context = {'list':qs}
-    return render(request, 'search.html', context)
+    return render(request, 's_mlist.html', context)
 
 
 # 영화 줄거리 검색
@@ -23,7 +23,7 @@ def story(request):
     word = request.GET.get('word', '')
     qs = Board.objects.filter(story__icontains=word)
     context = {'list':qs}
-    return render(request, 'search.html', context)
+    return render(request, 's_mlist.html', context)
 
 # 전체 검색
 def search(request):
@@ -34,4 +34,4 @@ def search(request):
         Q(story__icontains=word)
     )
     context = {'list':qs}
-    return render(request, 'search.html', context)
+    return render(request, 's_mlist.html', context)

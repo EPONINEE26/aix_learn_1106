@@ -13,84 +13,120 @@
 <!-- HEADER -->
 <header>
 <div class="top">
-<div class="logo">MovieWorld</div>
-<ul class="menu">
-<li><a href="#">소개</a></li>
-<li><a href="#">뉴스</a></li>
-<li><a href="#">학생관리</a></li>
-<li><a href="#">학과정보</a></li>
-<li><a href="#">문의</a></li>
-</ul>
+    <div class="logo">MovieWorld</div>
+        <ul class="menu">
+            <li><a href="/">홈으로</a></li>
+            <li><a href="/board/mlist/">전체영화</a></li>
+            <li><a href="/board/action/">액션</a></li>
+            <li><a href="/board/drama/">드라마</a></li>
+            <li><a href="/board/thriller/">스릴러</a></li>
+            <li><a href="/board/comedy/">코믹</a></li>
+            <li><a href="/screen/s_mlist">영화검색</a>
+        </ul>
+        </div>
+    {% comment %} <ul class="menu">
+        <li><a href="/board/mlist/">영화소개</a></li>
+        <li><a href="/board/mlist/">전체영화</a></li>
+        <li><a href="/board/mlist/">장르별 영화</a></li>
+        <li><a href="/board/mlist/">영화추천</a></li>
+        <li><a href="/board/mlist/">영화검색</a></li>
+    </ul> {% endcomment %}
 </div>
+
 </header>
 <!-- VISUAL -->
 <section class="visual">
 <div>
 <h1>NEWS</h1>
-<p>포레스트의 새로운 소식을 만나보세요.</p>
+<p>새로운 영화의 세계로 같이 가요.</p>
 </div>
 </section>
 <!-- CONTENT -->
 <main>
-<div class="container">
-<div class="breadcrumb">
+    <div class="container">
+        <div class="breadcrumb">
             HOME
-            <span>&gt;</span>
-            FOREST
-            <span>&gt;</span>
-            NEWS
+            <span>></span>
+            MovieWorld
+            <span>></span>
+            MOVIE LIST
+        </div>
+
+        <div class="title">
+            <h2>MOVIE</h2>
+            <p>우리의 영화는 계속됩니다.</p>
         </div>
 <div class="title">
 <h2>MovieWorld</h2>
 <p>새로운 영화의 세계로 같이 가요</p>
 </div>
 <!-- SEARCH -->
-<div class="search">
-<select>
-<option>제목</option>
-<option>내용</option>
-<option>전체</option>
+<form action="/board/s_mlist/" name="searchFrm" method="post">
+{% csrf_token %}
+{% comment %} <div class="search"> {% endcomment %}
+<select id="searchType">
+    <option>장르:{{board.genre}}</option>
+    <option>제목:{{board.title}}</option>
+    <option>줄거리:{{board.story}}</option>
+    <option>전체영화:{{board.mlist}}</option>
 </select>
-<input placeholder="검색어를 입력하세요." type="text"/>
-<button>검색</button>
+<input name='msearch' placeholder="검색어를 입력하세요." type="text"/>
+<button type="submit">검색</button>
+</form>
 </div>
-<!-- NEWS LIST -->
-<div class="board-wrap"><table class="board-table"><thead><tr><th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr></thead><tbody><tr>
-<td class="number">16</td>
-<td class="subject"><a href="#">새로운 조식 메뉴와 이용요금 변경 안내</a></td>
-<td>관리자</td>
-<td>2026.09.15</td>
-<td>248</td>
-</tr><tr>
-<td class="number">15</td>
-<td class="subject"><a href="#">편안한 여행을 위한 객실 서비스 안내</a></td>
-<td>관리자</td>
-<td>2026.09.10</td>
-<td>193</td>
-</tr><tr>
-<td class="number">14</td>
-<td class="subject"><a href="#">자연 속에서 즐기는 특별한 휴식 프로그램</a></td>
-<td>관리자</td>
-<td>2026.09.05</td>
-<td>176</td>
-</tr><tr>
-<td class="number">13</td>
-<td class="subject"><a href="#">가을 시즌 특별 패키지 출시</a></td>
-<td>관리자</td>
-<td>2026.08.28</td>
-<td>152</td>
-</tr><tr>
-<td class="number">12</td>
-<td class="subject"><a href="#">더욱 편리해진 리조트 이용 안내</a></td>
-<td>관리자</td>
-<td>2026.08.20</td>
-<td>121</td>
-</tr></tbody></table></div>
+
+<!-- Movie LIST -->
+<div class="board-wrap">
+    {% for board in list %}
+    <div class="movie">
+        <a href="/board/mview/{{board.mno}}/">
+            <img src="{{board.poster.url}}" alt="{{board.title}}" width="180">
+            <h3>{{board.title}}</h3>
+        </a>
+        <p>장르 : {{board.genre}}</p>
+        <p>제목 : {{board.title}}</p>
+        <p>줄거리 : {{board.story}}</p>
+        <p>감독 : {{board.director}}</p>
+        <p>배우 : {{board.actor1}},{{board.actor2}},{{board.actor3}}</p>
+        <p>개봉일 : {{board.release_date}}</p>
+    </div>
+    {% endfor %}
+</div>
+    <table class="board-table">
+    <thead>
+        <tr>
+            <th>번호:{{board.mno}}</th>
+            <th>제목:{{board.title}}</th>
+            <th>작성자:{{board.id}}</th>
+            <th>개봉일:{{board.release_date}}</th>
+            <th>조회수:{{board.mhit}}</th>
+        </tr>
+    </thead>
+        <tbody>
+            {% if list %} 
+                {% for board in list %}
+                    <tr>
+                        <td class="number">{{board.mno}}</td>
+                        <td class="subject"><a href="/board/mview/{{board.mno}}/">{{board.title}}</a></td>
+                        <td>{{board.id}}</td>
+                        <td>{{board.mdate | date:'Y-m-d H:i'}}</td>
+                        <td>{{board.mhit}}</td>
+                    </tr>
+                {% endfor %}
+             {% else %} 
+                    <tr>
+                        <td colspan="5">등록된 영화가 없습니다.</td>
+                    </tr>
+            {% endif %} 
+        </tbody>
+    </table>
+</div>
+
+</table>
+</div>
 <!-- WRITE BUTTON -->
 <div class="write-area">
-<a class="write-btn" href="#">
-                글쓰기
-            </a>
+<a class="write-btn" href="#">글쓰기</a>
 </div>
 <!-- PAGINATION -->
 <div class="pagination">
@@ -101,8 +137,6 @@
 <a href="#">3</a>
 <a href="#">4</a>
 <a href="#">5</a>
-<a href="#">›</a>
-<a href="#">»</a>
 </div>
 </div>
 </main>
@@ -117,11 +151,9 @@
 <a href="#">이메일무단수집거부</a>
 </div>
 <div class="footer-info">
-
-            포레스트 리조트\
-            충청북도 제천시 백운면 금봉로 365\
-            대표번호 : 043-649-6000
-
+            우리 영화 이야기\
+            서울시 관악구 신림동 우장빌딩 5층\
+            대표번호 : 010-123-4567
         </div>
 </div>
 </footer>

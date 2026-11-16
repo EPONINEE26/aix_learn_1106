@@ -48,6 +48,17 @@
         }
 
 
+        #snb ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #snb ul li {
+            margin-right: 25px;
+        }
+        
         /* VISUAL */
         .visual {
             height: 280px;
@@ -146,30 +157,31 @@
         }
 
 
-        /* NEWS LIST */
-        .news-list {
+        /* MOVIE LIST */
+        .movie-list {
             border-top: 2px solid #333;
+            display: flex;                     /* 안의 카드(movie-item)들을 가로로 나열 */
+            flex-wrap: wrap;                   /* 한 줄이 가득 차면 다음 줄로 내림 */
+            justify-content: space-between;    /* 한 줄의 두 카드를 양 끝으로 배치 */
         }
-
-        .news-item {
+        
+        .movie-item {
+            width: 48%;                        /* 카드 하나의 가로 폭 (2개 = 96% 이므로 3번째 카드부터 다음 줄) */
             min-height: 145px;
-
-            display: flex;
+            display: flex;                     /* 카드 안의 이미지·글·카테고리를 가로로 배치 */
             align-items: center;
-
             border-bottom: 1px solid #eee;
-
             transition: background .3s;
         }
 
-        .news-item:hover {
+        .movie-item:hover {
             background: #fafafa;
         }
 
         .number {
             width: 100px;
             text-align: center;
-            color: #999;
+            color: #999;            
         }
 
 
@@ -192,23 +204,23 @@
             transition: transform .5s;
         }
 
-        .news-item:hover img {
+        .movie-item:hover img {
             transform: scale(1.08);
         }
 
 
-        /* NEWS CONTENT */
-        .news-content {
-            flex: 1;
+        /* MOVIE CONTENT */
+        .movie-content {
+            flex: 1;                           /* 이미지와 카테고리를 뺀 나머지 폭을 글 영역이 차지 */
         }
 
-        .news-content h3 {
+        .movie-content h3 {
             font-size: 18px;
             font-weight: 500;
             margin-bottom: 12px;
         }
 
-        .news-content p {
+        .movie-content p {
             color: #999;
             font-size: 13px;
             margin-bottom: 8px;
@@ -347,6 +359,11 @@
                 flex: 1;
             }
 
+            /* 추가: 모바일 폭에서는 카드가 1줄에 1개 */
+            .movie-item {
+                width: 100%;
+            }
+
             .number {
                 width: 40px;
             }
@@ -357,11 +374,12 @@
                 margin-right: 15px;
             }
 
-            .news-content h3 {
+            /* 수정: .news-content -> .movie-content (아래 2곳) */
+            .movie-content h3 {
                 font-size: 15px;
             }
 
-            .news-content p {
+            .movie-content p {
                 display: none;
             }
 
@@ -369,4 +387,3 @@
                 display: none;
             }
         }
-

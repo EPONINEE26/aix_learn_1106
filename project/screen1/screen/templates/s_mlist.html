@@ -13,94 +13,122 @@
 <!-- HEADER -->
 <header>
 <div class="top">
-<div class="logo">MovieWorld</div>
+    <div class="logo">MovieWorld</div>
+        <ul class="menu">
+            <li><a href="/">홈으로</a></li>
+            <li><a href="/board/mlist/">전체영화</a></li>
+            <li><a href="/board/action/">액션</a></li>
+            <li><a href="/board/drama/">드라마</a></li>
+            <li><a href="/board/thriller/">스릴러</a></li>
+            <li><a href="/board/comedy/">코믹</a></li>
+            <li><a href="/screen/s_mlist">영화검색</a>
+        </ul>
+    </div>
+<!-- 
 <ul class="menu">
-<li><a href="#">소개</a></li>
-<li><a href="#">뉴스</a></li>
-<li><a href="#">학생관리</a></li>
-<li><a href="#">학과정보</a></li>
-<li><a href="#">문의</a></li>
+<li><a href="/board/mlist/">장르별</a></li>
+<li><a href="#">제목</a></li>
+<li><a href="#">줄거리</a></li>
+<li><a href="#">전체검색</a></li>
 </ul>
+</div>
+--> 
+
 </div>
 </header>
 <!-- VISUAL -->
 <section class="visual">
 <div>
-<h1>NEWS</h1>
-<p>새로운 영화의 세계로 같이 가요</p>
+<h1>SEARCH</h1>
+<p>원하는 영화를 검색하세요.</p>
 </div>
 </section>
 <!-- CONTENT -->
 <main>
 <div class="container">
 <div class="breadcrumb">
-            HOME
-            <span>&gt;</span>
-            FOREST
-            <span>&gt;</span>
-            NEWS
-        </div>
+    HOME
+    <span>></span>
+    MovieWorld
+    <span>></span>
+    SEARCH RESULT
+ </div>
 <div class="title">
-<h2>뉴스</h2>
-<p><p>새로운 영화의 세계로 같이 가요</p></p>
+<h2>SEARCH RESULT</h2>
+<p><p>찾는 검색 결과입니다.</p></p>
 </div>
 <!-- SEARCH -->
+<form action="/board/s_mlist/" name="searchFrm" method="post">
+{% csrf_token %}
 <div class="search">
-<select>
-<option>제목</option>
-<option>내용</option>
-<option>전체</option>
+<select id="searchType">
+    <option>장르:{{board.genre}}</option>
+    <option>제목:{{board.title}}</option>
+    <option>줄거리:{{board.story}}</option>
+    <option>전체영화:{{board.mlist}}</option>
 </select>
-<input placeholder="검색어를 입력하세요." type="text"/>
-<button>검색</button>
+<input name="msearch" placeholder="검색어를 입력하세요." type="text"/>
+<button type="submit">검색</button>
+</form>
 </div>
-<!-- NEWS LIST -->
-<div class="board-wrap"><table class="board-table"><thead><tr><th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th></tr></thead><tbody><tr>
-<td class="number">16</td>
-<td class="subject"><a href="#">새로운 조식 메뉴와 이용요금 변경 안내</a></td>
-<td>관리자</td>
-<td>2026.09.15</td>
-<td>248</td>
-</tr><tr>
-<td class="number">15</td>
-<td class="subject"><a href="#">편안한 여행을 위한 객실 서비스 안내</a></td>
-<td>관리자</td>
-<td>2026.09.10</td>
-<td>193</td>
-</tr><tr>
-<td class="number">14</td>
-<td class="subject"><a href="#">자연 속에서 즐기는 특별한 휴식 프로그램</a></td>
-<td>관리자</td>
-<td>2026.09.05</td>
-<td>176</td>
-</tr><tr>
-<td class="number">13</td>
-<td class="subject"><a href="#">가을 시즌 특별 패키지 출시</a></td>
-<td>관리자</td>
-<td>2026.08.28</td>
-<td>152</td>
-</tr><tr>
-<td class="number">12</td>
-<td class="subject"><a href="#">더욱 편리해진 리조트 이용 안내</a></td>
-<td>관리자</td>
-<td>2026.08.20</td>
-<td>121</td>
-</tr></tbody></table></div>
-<!-- WRITE BUTTON -->
-<div class="write-area">
-<a class="write-btn" href="#">
-                글쓰기
-            </a>
-</div>
+<!-- Movie LIST -->
+<div class="board-wrap">
+   {% comment %} <table class="board-table">
+        <tbody>
+        <thead> {% endcomment %}
+     {% for movie in list %}
+     <div class="movie-item">
+        <a class="movie-poster" href="{/board/mview/board.mno/}">
+            <img src="{movie.poster.url}}" alt="{{movie.title}}"> 
+        </a> 
+
+      <div class="movie-info">
+            <h3><a href="{/board/mview/board.mno}">{{board.title}}</a></h3>
+            <p class="movie-story">{board.story|linebreaksbr }</p>
+            <ul>
+                <li>장르 : {{board.genre}}</li>
+                <li>제목 : {{board.title}}</li>
+                <li>줄거리 : {{board.story}}</li>
+                <li>감독 : {{board director}}</board></li>
+                <li>배우 : {{board.actor1}},{{board.actor2}},{{board.actor3}}</li>
+                <li>개봉일 : {{board.release_date|date:"Y-m-d"}}</li>
+            </ul>
+        </div>   
+    </div>
+    {% empty %}
+    <p class="movie-list">등록된 영화가 없습니다.</p>
+    {% endfor %}
+</div>> 
+
+{% comment %} 
+<!-- MOVIE LIST -->
+<!-- 수정: 표(table)와 고정 샘플 행을 삭제하고, 포스터(왼쪽) + 제목/줄거리/감독/배우/개봉일(오른쪽) 카드 반복문으로 교체 -->
+<div class="board-wrap">
+    {% for movie in list %}  <!-- 수정: 반복문 여는 괄호 오타(중괄호 2개) 수정 -->
+    <div class="movie-item">
+        <a class="movie-poster" href="{% url 'board:mview' movie.mno %}">
+            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+        </a>
+        <div class="movie-info">
+            <h3><a href="{% url 'board:mview' movie.mno %}">{{ movie.title }}</a></h3>
+            <p class="movie-story">{{ movie.story|linebreaksbr }}</p>  <!-- 제목 아래 줄거리 -->
+            <ul class="movie-meta">
+                <li><span>장르</span>{{ movie.genre }}</li>
+                <li><span>감독</span>{{ movie.director }}</li>
+                <li><span>배우</span>{{ movie.actor1 }}, {{ movie.actor2 }}, {{ movie.actor3 }}</li>
+                <li><span>개봉일</span>{{ movie.release_date|date:"Y년 n월 j일" }}</li>
+            </ul>
+        </div>
+    </div>
+    {% empty %}
+    <p class="movie-empty">등록된 영화가 없습니다.</p>
+    {% endfor %}
+</div>> {% endcomment %}
 <!-- PAGINATION -->
 <div class="pagination">
 <a href="#">«</a>
 <a href="#">‹</a>
 <a class="active" href="#">1</a>
-<a href="#">2</a>
-<a href="#">3</a>
-<a href="#">4</a>
-<a href="#">5</a>
 <a href="#">›</a>
 <a href="#">»</a>
 </div>
@@ -117,11 +145,9 @@
 <a href="#">이메일무단수집거부</a>
 </div>
 <div class="footer-info">
-
-            포레스트 리조트\
-            충청북도 제천시 백운면 금봉로 365\
-            대표번호 : 043-649-6000
-
+            우리 영화 이야기\
+            서울시 관악구 신림동 우장빌딩 5층\
+            대표번호 : 010-123-4567
         </div>
 </div>
 </footer>

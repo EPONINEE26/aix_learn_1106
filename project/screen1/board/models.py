@@ -11,6 +11,7 @@ class Board(models.Model):
     actor1 = models.CharField(max_length=100)
     actor2 = models.CharField(max_length=100)
     actor3 = models.CharField(max_length=100)
+    mhit = models.IntegerField(default=0)
     release_date = models.DateField()
 
     def __str__(self):

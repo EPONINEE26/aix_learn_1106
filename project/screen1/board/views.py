@@ -39,5 +39,8 @@ def comedy(request):
 # 영화 상세 정보
 def mview(request, mno):
     qs = Board.objects.get(mno=mno)
+    qs.mhit +=1
+    qs.save()
     context = {'movie':qs}
     return render(request, 'mview.html', context)
+

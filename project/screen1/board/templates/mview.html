@@ -11,15 +11,33 @@
 <!-- HEADER -->
 <header>
 <div class="top">
-<div class="logo">MovieWorld</div>
+    <div class="logo">MovieWorld</div>
+        <ul class="menu">
+            <li><a href="/board/mlist/">장르별</a></li>
+            <li><a href="#">제목</a></li>
+            <li><a href="#">줄거리</a></li>
+            <li><a href="#">전체검색</a></li>
+        </ul>
+        </div>
+    {% comment %} <ul class="menu">
+        <li><a href="/board/mlist/">영화소개</a></li>
+        <li><a href="/board/mlist/">전체영화</a></li>
+        <li><a href="/board/mlist/">장르별 영화</a></li>
+        <li><a href="/board/mlist/">영화추천</a></li>
+        <li><a href="/board/mlist/">영화검색</a></li>
+    </ul> {% endcomment %}
+</div>
+
+<!-- 
 <ul class="menu">
-<li><a href="#">소개</a></li>
-<li><a href="#">뉴스</a></li>
-<li><a href="#">학생관리</a></li>
-<li><a href="#">학과정보</a></li>
-<li><a href="#">문의</a></li>
+<li><a href="/board/mlist/">장르별</a></li>
+<li><a href="#">제목</a></li>
+<li><a href="#">줄거리</a></li>
+<li><a href="#">전체검색</a></li>
 </ul>
 </div>
+--> 
+
 </header>
 <!-- VISUAL -->
 <section class="visual">
@@ -29,154 +47,377 @@
 </div>
 </section>
 <main>
-
-    <div class="container">
-
-
-        <!-- BREADCRUMB -->
-
-        <div class="breadcrumb">
-
-            HOME
-            <span>></span>
-
-            FOREST
-            <span>></span>
-
-            NEWS
-
-        </div>
-
+    <div class="breadcrumb">
+        HOME
+        <span>></span>
+        MovieWorld
+        <span>></span>
+        MOVIE LIST
+    </div>
 
         <!-- PAGE TITLE -->
-
         <div class="page-title">
-
-            <h2>뉴스</h2>
-
+            <h2>OurMovie</h2>
         </div>
-
 
         <!-- =========================
              POST
         ========================= -->
-
         <article class="post">
-
-
             <!-- POST HEADER -->
-
             <div class="post-header">
-
-                <h3>
-                    가을 시즌 특별 패키지 출시 안내
-                </h3>
-
-                <div class="post-info">
-
-                    <span>
-                        FOREST
-                    </span>
-
-                    <span>
-                        작성자 : 관리자
-                    </span>
-
-                    <span>
-                        2026.09.15
-                    </span>
-
-                    <span>
-                        조회수 : 125
-                    </span>
-
+                <h3>장르별</h3>
+                {% comment %} <div class="post-info">
+                    <span>MovieWorld</span>
+                    <span>작성자 : {{board.id}}</span>
+                    <span>{{board.mdate|date:"Y-m-d"}}</span>
+                    <span>조회수 : {{board.mhit}}</span>
                 </div>
-
-            </div>
-
+            </div> {% endcomment %}
 
             <!-- POST IMAGE -->
-
             <div class="post-image">
-
-                <img
-                    src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
-                    alt="가을 시즌 특별 패키지"
-                >
-
-            </div>
-
+                <div class="post-image">
+                    <img src="/static/images/액션 우먼 인 할리우드.webp/" alt="액션 우먼 인 할리우드 ">
+                </div>
 
             <!-- POST CONTENT -->
-
             <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 액션</p>
+                    <p>제목 : 액션 우먼 인 할리우드</p>
+                    <p>줄거리 : <분노의 질주> 시리즈, <존 윅>, <고스트버스터즈>... 할리우드를 대표하는 액션 영화 완성에는 그녀들이 있었다. 최고의 액션을 구현하기 위해 보이지 않는 곳에서 고군분투하며 관객들에게 전율과 감동을 선사해 온 스턴트우먼들. <br>
+                                그녀들이 전하는 스크린 안과 밖에서의 비하인드 스토리.</p>
+                    <p>감독 : 에이프릴 라이트 </p>
+                    <p>출연 : 미셸 로드리게즈 (나레이션), 미셸 주빌리 곤잘레스, 에이미 존스턴, 앤 플레쳐, 지니 엡퍼, 앤디 암스트롱, 하이디 머니메이커</p>
+                    <p>개봉일 : 2021년 3월 18일</p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
 
-                <p>
-                    아름다운 가을을 맞아 포레스트에서
-                    특별한 시즌 패키지를 준비했습니다.
-                </p>
+            <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/범죄도시4.webp/" alt="범죄도시4">
+                </div>
 
-                <p>
-                    깊어가는 가을의 자연을 가까이에서 느끼며
-                    편안한 휴식과 다양한 프로그램을 함께
-                    즐겨보시기 바랍니다.
-                </p>
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 액션</p>
+                    <p>제목 : 범죄도시4</p>
+                    <p>줄거리 :신종 마약 사건 3년 뒤, 괴물형사 ‘마석도’(마동석)와 서울 광수대는 배달앱을 이용한 마약 판매 사건을 수사하던 중 수배 중인 앱 개발자가 필리핀에서 사망한 사건이 대규모 온라인 불법 도박 조직과 연관되어 있음을 알아낸다.<br>
+                              필리핀에 거점을 두고 납치, 감금, 폭행, 살인 등으로 대한민국 온라인 불법 도박 시장을 장악한 특수부대 용병 출신의 빌런 ‘백창기’(김무열)와 한국에서 더 큰 판을 짜고 있는 IT업계 천재 CEO ‘장동철’(이동휘).<br>
+                              ‘마석도’는 더 커진 판을 잡기 위해 ‘장이수’(박지환)에게 뜻밖의 협력을 제안하고 광역수사대는 물론, 사이버수사대까지 합류해 범죄를 소탕하기 시작하는데…<br>
+                              나쁜 놈 잡는데 국경도 영역도 제한 없다! <br>
+                              업그레이드 소탕 작전! 거침없이 싹 쓸어버린다!</p>
+                    <p>감독 : 허명행</p>
+                    <p>출연 : 마동석, 김무열, 이동휘, 박지환</p>
+                    <p>개봉일 : 2024년 4월 24일</p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
+                            <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/킹스맨 퍼스트 에이전트.webp/" alt="킹스맨 퍼스트 에이전트">
+                </div>
 
-                <p>
-                    이번 패키지는 객실 숙박과 조식,
-                    다양한 부대시설 이용 혜택을 포함하고 있습니다.
-                </p>
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 액션</p>
+                    <p>제목 : 킹스맨: 퍼스트 에이전트</p>
+                    <p>줄거리 : 역사상 최악의 폭군들과 범죄자들이 모여 수백만 명의 생명을 위협할 전쟁을 모의하는 광기의 시대. 이들을 막으려는 한 사람과 그가 비밀리에 운영 중인 독립 정보기관, `킹스맨`의 최초 미션이 시작된다!<br>
+                               12월, 베일에 감춰졌던 킹스맨의 탄생을 목격하라!</p>
+                    <p>감독 : 매튜 본</p>
+                    <p>출연 : 레이프 파인즈 (옥스포드공작역), 해리스 디킨슨 (콘래드약) , 젬마 아터튼 (폴리역), 리스 이판 (라스푸틴역)</p>
+                    <p>개봉일 : 2021년 12월 22일</p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
 
-                <p>
-                    자세한 이용 기간과 예약 방법은
-                    홈페이지를 통해 확인하실 수 있습니다.
-                </p>
+             <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/괴물.webp/" alt="괴물">
+                </div>
 
-            </div>
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 드라마</p>
+                    <p>제목 : 괴물</p>
+                    <p>줄거리 : 우리는 얼마나 자주 주변을, 세상을 원망하며 피해자를 자청하고 있는가. 스스로 괴물이되어버리기도, 누군 가를 괴물로 만들기도 하며 살고 있나? <br>
+                               *추천 대사: 몇몇 사람만 가질 수 있는 건 행복이라 부르지 않아.<br>
+                               “우리 동네에는 괴물이 산다” <br>
+                               싱글맘 사오리(안도 사쿠라)는 아들 미나토(쿠로카와 소야)의 행동에서 이상 기운을 감지한다. 용기를 내 찾아간 학교에서 상담을 진행한 날 이후 선생님과 학생들의 분위기가 심상치 않게 흐르기 시작하고.<br>
+                               “괴물은 누구인가?” <br>
+                               한편 사오리는 친구들로부터 따돌림을 당하고 있는 미나토의 친구 요리(히이라기 히나타)의 존재를 알게 되고 자신이 아는 아들의 모습과 사람들이 아는 아들의 모습이 다르다는 사실을 어렴풋이 깨닫는데… 태풍이 몰아치던 어느 날, 아무도 몰랐던 진실이 드러난다.</p>
+                    <p>감독 : 고레에다 히로카즈</p>
+                    <p>출연 : 안도 사쿠라, 나가야마 에이타, 쿠로카와 소야, 히이라기 히나타</p>
+                    <p>개봉일 : 2023년 11월 29일</p>
+                </div>
+                    {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
 
+              <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/인턴.webp/" alt="인턴">
+                </div>
+
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 드라마</p>
+                    <p>제목 : 인턴</p>
+                    <p>줄거리 : 창업 1년 반 만에 직원 220명의 성공신화를 이룬 줄스(앤 해서웨이). TPO에 맞는 패션센스, 업무를 위해 사무실에서도 끊임 없는 체력관리, 야근하는 직원 챙겨주고, 고객을 위해 박스포장까지 직접 하는 열정적인 30세 여성 CEO! <br> 
+                               한편, 수십 년 직장생활에서 비롯된 노하우와 나이만큼 풍부한 인생경험이 무기인 만능 70세의 벤(로버트 드 니로)을 인턴으로 채용하게 되는데...</p>
+                    <p>감독 : 낸시 마이어스</p>
+                    <p>출연 : 로버트 드 니로 (벤역), 앤 해서웨이 (줄스역), 르네 루소 (피오나역), 앤더스 홀름 (맷역)</p>
+                    <p>개봉일 :  2026년 9월 16일 </p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
+
+
+             <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/왕과사는남자.webp/" alt="왕과사는남자">
+                </div>
+
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 드라마</p>
+                    <p>제목 : 왕과사는남자</p>
+                    <p>줄거리 : 계유정난이 조선을 뒤흔들고 어린 왕 이홍위는 왕위에서 쫓겨나 유배길에 오른다. 한편, 강원도 영월 산골 마을 촌장 엄흥도는 먹고 살기 힘든 마을 사람들을 위해 청령포를 유배지로 만들기 위해 노력한다. <br>
+                               그러나 촌장이 부푼 꿈으로 맞이한 이는 왕위에서 쫓겨난 이홍위였다. 그의 모든 일상을 감시해야만 하는 촌장은 삶의 의지를 잃어버린 이홍위가 점점 신경 쓰이는데…<br>
+                               “나는 이제 어디로 갑니까…” 계유정난이 조선을 뒤흔들고 어린 왕 이홍위는 왕위에서 쫓겨나 유배길에 오른다. “무슨 수를 쓰더라도 그 대감을 우리 광천골로 오게 해야지” <br>
+                               한편, 강원도 영월 산골 마을 광천골의 촌장 엄흥도는 먹고 살기 힘든 마을 사람들을 위해 청령포를 유배지로 만들기 위해 노력한다. <br> 
+                               그러나 촌장이 부푼 꿈으로 맞이한 이는 왕위에서 쫓겨난 이홍위였다. <br>
+                               유배지를 지키는 보수주인으로서 그의 모든 일상을 감시해야만 하는 촌장은 삶의 의지를 잃어버린 이홍위가 점점 신경 쓰이는데…<br>
+                               1457년 청령포, 역사가 지우려 했던 이야기 <br>
+                               <왕과 사는 남자></p>
+                    <p>감독 : 장항준</p>
+                    <p>출연 : 유해진 (엄흥도역), 박지훈 (이홍위역), 유지태 (한명회역), 전미도 (매화역) </p>
+                    <p>개봉일 : 2026년 2월 4일</p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
+
+             <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/추격자.webp/" alt="추격자">
+                </div>
+
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 스릴러</p>
+                    <p>제목 : 추격자</p>
+                    <p>줄거리 : 출장안마소를 운영하는 전직 형사 중호. 최근 데리고 있던 여자들이 잇달아 사라지는 일이 발생하던 중 조금 전 나간 미진을 불러낸 손님의 전화 번호와 사라진 여자들이 마지막으로 통화한 번호가 일치함을 알아낸다. <br> 
+                               연락이 두절된 미진을 찾아 헤매던 중 우연히 옷에 피가 묻은 영민과 마주치고, 추격 끝에 그를 붙잡는다. <br>
+                               실종된 여자들을 모두 죽였다는 충격적인 고백을 담담히 털어놓는 영민에 의해 경찰서는 발칵 뒤집어진다. 공세우기에 혈안이 된 경찰은 미진의 생사보다는 증거를 찾기에만 급급해 하고, 미진이 살아 있다고 믿는 단 한 사람인 중호는 미진을 찾아 나서는데...</p>
+                    <p>감독 : 나홍진</p>
+                    <p>출연 : 김윤석 (엄중호역) , 하정우 (지영민역), 서영희 (김미진역)</p>
+                    <p>개봉일 : 2008년 2월 14일</p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}                
+
+             <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/셔터 아일랜드.webp/" alt="셔터 아일랜드">
+                </div>
+
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>제목 : 셔터 아일랜드</p>
+                    <p>줄거리 : 범죄자들이 수용된 정신병원과 등대만이 존재하는 섬 ‘셔터 아일랜드’. 탈출이 불가능한 그 섬의 정신병원은 일반병동과 위험도가 높은 환자들이 수감된 격리병동으로 이루어져 있다. <br> 
+                               어느 날, 일반병동에서 한 환자가 흔적도 없이 사라지고, 조사를 위해 연방보안관 ‘테디 다니엘스’와 그의 파트너 ‘척 아울’이 ‘셔터 아일랜드’로 파견된다. <br>
+                               실종자의 방에서 의미불명의 쪽지를 찾은 ‘테디’와 ‘척’은 병원 곳곳을 조사하며 그 의미를 찾으려 하지만, 병원관계자들은 무언가를 숨기고 있는 듯한 묘한 분위기를 풍긴다.<br>
+                               그러던 중 갑작스런 폭풍이 섬을 덮치고, 그들은 외부의 어떤 도움도 받을 수 없는 상태로 섬에 갇히고 마는데…</p>
+                    <p>감독 : 마틴 스콜세지</p>
+                    <p>출연 : 마크 러팔로 (척 아울역), 벤 킹슬리 (존 코리 박사역), 막스 폰 시도우 (닥터 제레미아 내링역) </p>
+                    <p>개봉일 : 2010년 3월 18일</p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
+
+             <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/콘클라베.webp/" alt="콘클라베 ">
+                </div>
+
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 스릴러</p>
+                    <p>제목 : 콘클라베 </p>
+                    <p>줄거리 : 그럼에도 우리에게 신이 필요한 이유는 무엇일까요. 종교는 다시 순수로 돌아가야 합니다. 미래로 나아가기 위해. <br>
+                               교황의 예기치 못한 죽음 이후 새로운 교황을 선출하는 ‘콘클라베’가 시작되고, 로렌스(랄프 파인즈)는 단장으로서 선거를 총괄하게 된다. <br>
+                               한편 당선에 유력했던 후보들이 스캔들에 휘말리면서 교활한 음모와 탐욕이 수면 위로 드러나는데…</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : 2025년 3월 5일</p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
+
+            <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/디거.webp/" alt="디거">
+                </div>
+
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 코메디</p>
+                    <p>제목 : 디거</p>
+                    <p>줄거리 : 톰 크루즈 & 알레한드로 G. 이냐리투 감독의 역대급 만남! <br>
+                               끝까지 파거나, 죽거나! 전 세계를 뒤흔든 대재앙 <br>
+                               ‘디거 록웰’의 삽 끝에서 시작된 이야기를 확인하라! <br>
+                               3대째 석유 재벌로 살아온 ‘디거 록웰’은 최소한의 손실, 최대한의 이익을 추구하며 돈이 되는 일이라면 무엇이든 마다하지 않는다. <br>
+                               그러던 어느 날, 그린란드의 빙하 시추 시설에서 작은 균열이 발견되지만 ‘디거’는 대수롭지 않은 문제라 여기고 넘긴다 <br>
+                               하지만 사소하게 여겼던 균열은 걷잡을 수 없이 커지며 전 세계를 날려버릴 거대한 재난으로 번져가고 결국 ‘디거’는 초유의 사태를 해결하기 위해 직접 나서는데… </p>
+                    <p>감독 : 한드로 곤잘레스 이냐리투</p>
+                    <p>출연 : 톰 크루즈, 산드라 휠러, 제시 플레몬스, 존 굿맨</p>
+                    <p>개봉일 : 2026년 10월 3일</p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
+             <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/극한직업.webp/" alt="극한직업}">
+                </div>
+
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 코메디</p>
+                    <p>제목 : 극한직업</p>
+                    <p>줄거리 :  해체 위기에 놓인 마약반은 고반장(류승룡)의 지휘 아래 국제 범죄조직의 마약 밀반입 정황을 포착하고 마지막 잠복 수사에 나선다. 24시간 감시를 위해 조직의 아지트 앞 치킨집을 인수한 형사들은 위장 창업을 시작하지만, 마 형사(진선규)의 뜻밖의 요리 재능으로 치킨집이 순식간에 맛집으로 떠오른다. 범인보다 손님 잡기에 바빠진 마약반 앞에 마침내 사건 해결의 기회가 찾아온다. <br>
+                                불철주야 달리고 구르지만 실적은 바닥, 급기야 해체 위기를 맞는 마약반. 더 이상 물러설 곳이 없는 팀의 맏형 고반장은 국제 범죄조직의 국내 마약 밀반입 정황을 포착하고 장형사, 마형사, 영호, 재훈까지 4명의 팀원들과 함께 잠복 수사에 나선다. <br>
+                                마약반은 24시간 감시를 위해 범죄조직의 아지트 앞 치킨집을 인수해 위장 창업을 하게 되고, 뜻밖의 절대미각을 지닌 마형사의 숨은 재능으로 치킨집은 일약 맛집으로 입소문이 나기 시작한다.<br>
+                                수사는 뒷전, 치킨장사로 눈코 뜰 새 없이 바빠진 마약반에게 어느 날 절호의 기회가 찾아오는데…<br>
+                                범인을 잡을 것인가, 닭을 잡을 것인가!</p>
+                    <p>감독 : 이병헌</p>
+                    <p>출연 : 류승룡 (고반장역) , 이하늬 (장형사역), 진선규 (마형사역), 이동휘 (영호역), 공명 (재훈역)</p>
+                    <p>개봉일 : 2019년 1월 23일</p>
+                </div>
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
+
+            <!-- POST IMAGE -->
+            <div class="post-image">
+                <div class="post-image">
+                    <img src="/static/images/세 얼간이.webp/" alt="세 얼간이">
+                </div>
+
+            <!-- POST CONTENT -->
+            <div class="post-content">
+                <div class="post-content">
+                    <p>장르 : 코메디</p>
+                    <p>제목 : 세 얼간이</p>
+                    <p>줄거리 :천재들만 간다는 일류 명문대 ICE, 성적과 취업만을 강요하는 학교를 발칵 뒤집어 놓은 대단한 녀석 란초!<br>
+                              아버지가 정해준 꿈, ‘공학자’가 되기 위해 정작 본인이 좋아하는 일은 포기하고 공부만 하는 파파보이 파르한!<br>
+                              찢어지게 가난한 집, 병든 아버지와 식구들을 책임지기 위해 무조건 대기업에 취직해야만 하는 라주!<br>
+                              친구의 이름으로 뭉친 ‘세 얼간이’! 삐딱한 천재들의 진정한 꿈을 찾기 위한 세상 뒤집기 한판이 시작된다!</p>
+                    <p>감독 : 라지쿠마르 히라니</p>
+                    <p>출연 : 아미르 칸 (란초역), 마드하반 (파르한역), 셔먼 조쉬 (라주역),카리나 카푸르 (피아역)</p>
+                    <p>개봉일 : 2011년 08월18일</p>
+                </div> 
+                {% comment %} <div class="post-content">
+                    <p>장르 : {{movie.genre}}</p>
+                    <p>줄거리 : {{movie.story}}</p>
+                    <p>감독 : {{movie.director}}</p>
+                    <p>출연 : {{movie.actor1}}, {{movie.actor2}}, {{movie.actor3}}</p>
+                    <p>개봉일 : {{movie.release_date}}</p>
+                </div> {% endcomment %}
 
             <!-- =========================
                  PREVIOUS / NEXT
             ========================= -->
 
             <div class="post-navigation">
-
                 <a href="#">
-
-                    <div class="nav-title">
-                        이전글
-                    </div>
-
-                    <div class="nav-content">
-                        새로운 객실 서비스 이용 안내
-                    </div>
-
-                    <div class="nav-date">
-                        2026.09.10
-                    </div>
-
+                    <div class="nav-title">이전글</div>
+                    <div class="nav-content">{{board.title}}새로운 영화 이용 안내</div>
+                    <div class="nav-date">{{board.mdate}}</div>
                 </a>
 
 
                 <a href="#">
-
-                    <div class="nav-title">
-                        다음글
-                    </div>
-
-                    <div class="nav-content">
-                        자연 속에서 즐기는 특별한 휴식
-                    </div>
-
-                    <div class="nav-date">
-                        2026.09.05
-                    </div>
-
+                    <div class="nav-title">{{board.title}}</div>
+                    <div class="nav-content">{{board.title}}영화 속에서 즐기는 특별한 휴식</div>
+                    <div class="nav-date">{{board.mdate}}</div>
                 </a>
-
             </div>
-
-
         </article>
 
 
@@ -185,33 +426,16 @@
         ========================= -->
 
         <div class="button-area">
-
-
             <!-- LEFT -->
-
             <div class="button-left">
-
-                <a href="#" class="btn btn-dark">
-                    목록
-                </a>
-
+                <a href="#" class="btn btn-dark">목록</a>
             </div>
-
 
             <!-- RIGHT -->
-
             <div class="button-right">
-
-                <a href="#" class="btn">
-                    수정
-                </a>
-
-                <a href="#" class="btn btn-delete">
-                    삭제
-                </a>
-
+                <a href="#" class="btn">수정</a>
+                <a href="#" class="btn btn-delete">삭제</a>
             </div>
-
         </div>
 
 
@@ -220,187 +444,91 @@
         ========================= -->
 
         <section class="comments">
-
-
-            <h3 class="comments-title">
-
-                댓글
-
-                <span class="comment-count">
-                    3
-                </span>
-
+            <h3 class="comments-title">댓글
+                <span class="comment-count">3</span>
             </h3>
 
 
             <!-- COMMENT FORM -->
-
             <div class="comment-form">
-
-                <textarea
-                    placeholder="댓글을 입력하세요."
-                ></textarea>
-
+                <textarea placeholder="댓글을 입력하세요."></textarea>
 
                 <div class="comment-form-bottom">
-
                     <input
                         type="text"
                         class="comment-name"
-                        placeholder="작성자"
-                    >
+                        placeholder="작성자">
 
                     <button
                         type="button"
-                        class="comment-submit"
-                    >
+                        class="comment-submit">
                         댓글 등록
                     </button>
-
                 </div>
-
             </div>
 
 
             <!-- COMMENT LIST -->
-
             <div class="comment-list">
 
-
                 <!-- COMMENT 1 -->
-
                 <div class="comment">
-
                     <div class="comment-header">
-
-                        <span class="comment-user">
-                            홍길동
-                        </span>
-
-                        <span class="comment-date">
-                            2026.09.15 14:30
-                        </span>
-
+                        <span class="comment-user">홍길동</span>
+                        <span class="comment-date">2026.09.6 14:30</span>
                     </div>
 
                     <div class="comment-text">
-
-                        가을 패키지가 정말 기대됩니다.
-                        좋은 정보 감사합니다.
-
+                        이번 신작 정말 기대됩니다. 좋은 정보 감사합니다.
                     </div>
 
                     <div class="comment-buttons">
-
-                        <button>
-                            답글
-                        </button>
-
-                        <button>
-                            수정
-                        </button>
-
-                        <button>
-                            삭제
-                        </button>
-
+                        <button>답글</button>
+                        <button>수정</button>
+                        <button>삭제</button>
                     </div>
-
                 </div>
 
 
                 <!-- COMMENT 2 -->
-
                 <div class="comment">
-
                     <div class="comment-header">
-
-                        <span class="comment-user">
-                            김민수
-                        </span>
-
-                        <span class="comment-date">
-                            2026.09.15 13:15
-                        </span>
-
+                        <span class="comment-user">김민수</span>
+                        <span class="comment-date">2026.09.15 17:40</span>
                     </div>
 
                     <div class="comment-text">
-
-                        가족들과 방문할 예정인데
-                        좋은 프로그램이 많네요.
-
+                        가족들과 영화를 볼 예정인데 좋은 영화 추천해주세요.
                     </div>
 
                     <div class="comment-buttons">
-
-                        <button>
-                            답글
-                        </button>
-
-                        <button>
-                            수정
-                        </button>
-
-                        <button>
-                            삭제
-                        </button>
-
+                        <button>답글</button>
+                        <button>수정</button>
+                        <button>삭제</button>
                     </div>
-
                 </div>
 
 
                 <!-- COMMENT 3 -->
-
                 <div class="comment">
-
                     <div class="comment-header">
-
-                        <span class="comment-user">
-                            이수진
-                        </span>
-
-                        <span class="comment-date">
-                            2026.09.14 18:20
-                        </span>
-
+                        <span class="comment-user">이수진</span>
+                        <span class="comment-date">2026.09.26 10:15</span>
                     </div>
 
                     <div class="comment-text">
-
-                        다음 달에 예약하려고 합니다.
-                        이용 기간을 확인해봐야겠네요.
-
+                        다음 달에 영화예약하려고 합니다. 예매 가능 기간을 확인하고 싶네요.
                     </div>
 
                     <div class="comment-buttons">
-
-                        <button>
-                            답글
-                        </button>
-
-                        <button>
-                            수정
-                        </button>
-
-                        <button>
-                            삭제
-                        </button>
-
+                        <button>답글</button>
+                        <button>수정</button>
+                        <button>삭제</button>
                     </div>
-
                 </div>
-
-
             </div>
-
-
         </section>
-
-
     </div>
-
 </main>
 <!-- FOOTER -->
 <footer>
@@ -413,12 +541,10 @@
 <a href="#">이메일무단수집거부</a>
 </div>
 <div class="footer-info">
-
-            포레스트 리조트\
-            충청북도 제천시 백운면 금봉로 365\
-            대표번호 : 043-649-6000
-
-        </div>
+            우리 영화 이야기\
+            서울시 관악구 신림동 우장빌딩 5층\
+            대표번호 : 010-123-4567
+</div>
 </div>
 </footer>
 </body>
