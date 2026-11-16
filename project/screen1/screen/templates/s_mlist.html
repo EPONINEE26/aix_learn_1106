@@ -73,57 +73,35 @@
 </div>
 <!-- Movie LIST -->
 <div class="board-wrap">
-   {% comment %} <table class="board-table">
+{% comment %} <table class="board-table">
         <tbody>
         <thead> {% endcomment %}
-     {% for movie in list %}
-     <div class="movie-item">
-        <a class="movie-poster" href="{/board/mview/board.mno/}">
-            <img src="{movie.poster.url}}" alt="{{movie.title}}"> 
-        </a> 
+    {% if list %}
+        {% for board in list %}
+            <div class="movie-item">
+                <a class="movie-poster" href="{/board/mview/board.mno/}">
+                    <img src="{board.poster.url}}" alt="{{board.title}}"> 
+                </a> 
+            </div>  
+            
+            <div class="movie-info">
+                <h3><a href="{/board/mview/board.mno}">{{board.title}}</a></h3>
+                <p class="movie-story">{{board.story}}</p>
+                <ul>
+                    <li>장르 : {{board.genre}}</li>
+                    <li>제목 : {{board.title}}</li>
+                    <li>줄거리 : {{board.story}}</li>
+                    <li>감독 : {{board director}}</board></li>
+                    <li>배우 : {{board.actor1}},{{board.actor2}},{{board.actor3}}</li>
+                    <li>개봉일 : {{board.release_date|date:"Y-m-d"}}</li>
+                </ul>
+            </div>   
+        {% else %}
+            <p class="movie-list">등록된 영화가 없습니다.</p>
+        {% endfor %}
+    {% endif %}
+</div> 
 
-      <div class="movie-info">
-            <h3><a href="{/board/mview/board.mno}">{{board.title}}</a></h3>
-            <p class="movie-story">{board.story|linebreaksbr }</p>
-            <ul>
-                <li>장르 : {{board.genre}}</li>
-                <li>제목 : {{board.title}}</li>
-                <li>줄거리 : {{board.story}}</li>
-                <li>감독 : {{board director}}</board></li>
-                <li>배우 : {{board.actor1}},{{board.actor2}},{{board.actor3}}</li>
-                <li>개봉일 : {{board.release_date|date:"Y-m-d"}}</li>
-            </ul>
-        </div>   
-    </div>
-    {% empty %}
-    <p class="movie-list">등록된 영화가 없습니다.</p>
-    {% endfor %}
-</div>> 
-
-{% comment %} 
-<!-- MOVIE LIST -->
-<!-- 수정: 표(table)와 고정 샘플 행을 삭제하고, 포스터(왼쪽) + 제목/줄거리/감독/배우/개봉일(오른쪽) 카드 반복문으로 교체 -->
-<div class="board-wrap">
-    {% for movie in list %}  <!-- 수정: 반복문 여는 괄호 오타(중괄호 2개) 수정 -->
-    <div class="movie-item">
-        <a class="movie-poster" href="{% url 'board:mview' movie.mno %}">
-            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
-        </a>
-        <div class="movie-info">
-            <h3><a href="{% url 'board:mview' movie.mno %}">{{ movie.title }}</a></h3>
-            <p class="movie-story">{{ movie.story|linebreaksbr }}</p>  <!-- 제목 아래 줄거리 -->
-            <ul class="movie-meta">
-                <li><span>장르</span>{{ movie.genre }}</li>
-                <li><span>감독</span>{{ movie.director }}</li>
-                <li><span>배우</span>{{ movie.actor1 }}, {{ movie.actor2 }}, {{ movie.actor3 }}</li>
-                <li><span>개봉일</span>{{ movie.release_date|date:"Y년 n월 j일" }}</li>
-            </ul>
-        </div>
-    </div>
-    {% empty %}
-    <p class="movie-empty">등록된 영화가 없습니다.</p>
-    {% endfor %}
-</div>> {% endcomment %}
 <!-- PAGINATION -->
 <div class="pagination">
 <a href="#">«</a>
