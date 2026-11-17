@@ -3,9 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>메인페이지</title>
+    <script>
+        function getBtn(){
+            const send_data = $("#data").val();
+            console.log('데이터 :'+send_data)
+            $.ajax({
+                url : "/ajax_data/",
+                type : 'post',
+                headers : {'X-CSRFToken': '{{ csrf_token }}'},
+                data : {'data':send_data},
+                dataType : 'json',
+                success : function(data){
+                        alert('예측 데이터를 가져옵니다. 성공');
+                        console.log(data);
+
+                        const chart_label = data.result_name; // 분류 번호
+                        const chart_data = data.result_all; // 분류별 확률
+                        $("#input_data").text(send_data);
+                        $("#result").text(data.name); // 와인이름으로 출력
+                        $("#result2").text(data.result2);
+                        console.log("모든 와인 확률 :", chart_data)
+
+                        const ctx = document.getElementById('myChart');
+
+                        let chartStatus = Chart.getChart('myChart');
+                        if(chartStatus != undefined){
+                            console.log('destory succenss')
+                             chartStatus.destroy();
+                        }
+
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                            labels: chart_label,
+                            datasets: [{
+                                label: '예측 와인 ',
+                                data: chart_data,
+                                borderWidth: 1
+
+                            }]
+                            },
+                            options: {
+                            scales: {
+                                y: {
+                                beginAtZero: true
+                                }
+                            }
+                            }
+                        });
+                 },
+                error:function(){
+                    alert('예측하는데 오류가 발생했습니다. 다시 시도해주세요.')
+                 }
+            })
+        }
+    </script>
 </head>
 <body>
     <h1>메인페이지</h1>
+    <div>
+        <label> 와인의 데이터를 입력 (9.4,1.8,3.51)</label><br>
+        <input type="text" name="data" id="data">
+        <button type="button" onclick="getBtn()">예측</button>        
+        <br>
+        <br>
+        <div>입력데이터: <span id="input_data">데이터입력필요</span></div>
+        <div>예측와인 : <span id="result">?</span></div>
+        <div>예측확률 : <span id="result2">?</span></div>
+    </div>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+    <script>
+    </script> 
 </body>
 </html>
