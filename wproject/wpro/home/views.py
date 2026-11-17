@@ -4,6 +4,11 @@ from pathlib import Path
 import os
 import joblib
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+model = joblib.load(BASE_DIR / "model.joblib")
+# model2 = joblib.load(BASE_DIR / "model2.joblib")
+
+
 # 메인페이지 
 def index(request):
     # 주소 :  C:\workspace\learn\aix_learn_1106\wproject\wpro 로 이동하는 의미
@@ -29,9 +34,9 @@ def index(request):
 
 
 def ajax_data(request):
-    data = request.POST.get('data','40,11.73,7.22')
-    BASE_DIR = Path(__file__).resolve().parent.parent
-    model = joblib.load(BASE_DIR / "model.joblib")
+    data = request.POST.get('data','40,11.73,7.22,')
+    # BASE_DIR = Path(__file__).resolve().parent.parent
+    # model = joblib.load(BASE_DIR / "model.joblib")
     
     # 파일 변환
     in_data = data
@@ -42,9 +47,10 @@ def ajax_data(request):
     print('입력데이터 : ',result)
     result = model.predict([result])
     print(f'예측무게 : {result[0]:.2f} g')
+    
     # 파일전달
     context = {
-        'data':result[0],'result':'success'
+        'result_data':f'{result[0]:.2f}','result':'success'
     }
     return JsonResponse(context)
 
