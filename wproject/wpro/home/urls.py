@@ -5,5 +5,5 @@ app_name=''
 urlpatterns = [
     path('', views.index, name='index'),
     path('ajax_data/', views.ajax_data, name='ajax_data'),
-    # path('ajax_data1/', views.ajax_data1, name='ajax_data1'),
+    
 ]

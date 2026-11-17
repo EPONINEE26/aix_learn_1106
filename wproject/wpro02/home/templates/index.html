@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인페이지</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function sendBtn(){
+            // input에 있는 데이터 가져오기
+            const send_data = $('#data').val();
+            console.log("데이터 : "+send_data);
+            // views.py로 데이터 전달
+            $.ajax({
+                url:'/ajax_data/',
+                type:'post',
+                headers:{'X-CSRFToken':'{{csrf_token}}'},
+                data:{'data':send_data},
+                dataType:'json',
+                success:function(data){  
+                    // 예측생선,예측확률,전체생선확률,전체생선이름
+                    // result,result2,result_all,result_name
+                    alert('예측 데이터를 가져옵니다. 성공');
+                    console.log(data)
+                    // 예측무게 데이터
+                    const chart_label = data.result_name; //전체생선이름
+                    const chart_data = data.result_all;   //전체생선확률
+                    $('#input_data').text(send_data);  //예측생선이름
+                    $('#result').text(data.result);  //예측생선이름
+                    $('#result2').text(data.result2); //예측생선확률
+                    
+                    console.log("모든생선확률 : ",chart_data);
+
+                    //chart.js를 통해 그래프 생성
+                    const ctx = document.getElementById('myChart');
+
+                    let chartStatus = Chart.getChart("myChart");
+                    if(chartStatus != undefined){
+                        console.log("destroy success");
+                        chartStatus.destroy(); //리셋
+                    }
+
+                    new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                        labels: chart_label,
+                        datasets: [{
+                            label: '예측생선',
+                            data: chart_data,
+                            borderWidth: 1,
+                            //barThickness: 50 // 막대두께 50px고정
+                        }]
+                        },
+                        options: {
+                        scales: {
+                            y: {
+                            beginAtZero: true
+                            }
+                        }
+                        }
+                    });
+
+                },
+                fail:function(){
+                    alert('예측하는데 오류가 발생했습니다. 다시 시도해주세요.')
+                }
+
+
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <h1>메인페이지</h1>
+    <div>
+        <label> 생선의 무게, 길이,대각선, 높이, 넓이 (290.0,26.3,31.2,12.48,4.3056)</label><br/>
+        <input type='text' name='data' id='data'>
+        <button type='button' onclick='sendBtn()'>예측</button>
+        <br>
+        <br>
+        <div>입력데이터 : <span id='input_data'>데이터입력필요</span></div>
+        <div>예측생선 : <span id='result'> ? </span></div>
+        <div>예측확률 : <span id='result2'> ? </span></div>
+    </div>
+
+
+    <!-- 그래프   -->
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+    <!-- 그래프   -->
+
+    <script>
+    
+    </script>
+
+</body>
+</html>
