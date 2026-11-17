@@ -26,6 +26,7 @@ def ajax_data(request):
     print('입력데이터 : ',in_data)
     print(f'예측생선 : {result[0]} ')
     print(f'생선분류 : {model_ex.classes_} ')
+
     
     #-------------------------------------
     # 모든 생선에 대한 확률을 가져옴.
@@ -46,9 +47,12 @@ def ajax_data(request):
         result2 = result_all[5]    
     elif result == 'Whitefish':
         result2 = result_all[6]    
-
+        
     # np.array()타입을 list()타입으로 변경 - Json전송가능
     result_all = result_all.tolist()
+    # 모든 생선 종류 확인
+    print(model_ex[-1].classes_)
+    result_name = (model_ex[-1].classes_).tolist()    
     # result_str = "".join(map(str,result_all))   
     #-------------------------------------   
 
