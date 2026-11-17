@@ -3,18 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <title>Document</title>
+    <script>
+        function getData(){
+            var data = $('#data').val();
+            $.ajax({                
+                url : '/ajax_data/',
+                type : 'POST',
+                headers : { 'X-CSRFToken' : '{{ csrf_token }}' },                data : {'data':data},
+                dataType : 'json',
+                success : function(response) {
+                    alert('성공');
+                    console.log(data)
+                },
+                error : function(error) {
+                    alert('실패')
+                }
+            })
+        }
+    </script>
 </head>
 <body>
     <h1>메인페이지</h1>
     <div>
+        {% csrf_token %} <!-- Django에서 POST 요청을 받을 때 확인하는 값. <form> 태그가 없어도 JavaScript로 POST 요청을 보내기 때문에 CSRF 토큰이 필요함-->
         <label> 길이,높이,넓이를 입력하세요.</label><br/>
         <input type='text' name='data' id='data'>
-        <button type='button'>예측</button>
+        <button type='button' onclick="getData()">예측</button>
         <br>
         <br>
         <div id='result'>입력데이터 :  {{result}}</div>
         <div id='result2'>예측무게 : {{result2}} g</div>
+
+        {% comment %} <input type="text" id="data" value="40,11.73,7.22">
+        <button type="button" onclick="getData()">실행</button> {% endcomment %}
     </div>
 </body>
 </html>
