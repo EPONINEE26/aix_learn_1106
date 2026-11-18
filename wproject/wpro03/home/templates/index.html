@@ -23,8 +23,8 @@
                         const chart_label = data.result_name; // 분류 번호
                         const chart_data = data.result_all; // 분류별 확률
                         $("#input_data").text(send_data);
-                        $("#result").text(data.name); // 와인이름으로 출력
-                        $("#result2").text(data.result2);
+                        $("#result").text(data.name); // 숫자(0 또는 1)에서 변환된 최종 예측 와인 이름
+                        $("#result2").text(data.result2); // 예측된 그 와인의 확률값 (%)
                         console.log("모든 와인 확률 :", chart_data)
 
                         const ctx = document.getElementById('myChart');
