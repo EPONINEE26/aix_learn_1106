@@ -54,11 +54,11 @@ def ajax_data(request):
     print('확률 : ', result2)
 
     context = {
-        'result' : f'{result[0]}',
-        'result2' : result2,
-        'result_all' : result_all,
-        'result_name' : result_name,
-        'name' : name
+        'result' : f'{result[0]}',    # 모델이 예측한 숫자 (0 또는 1)
+        'result2' : result2,          # 예측된 그 와인의 확률값 (%)
+        'result_all' : result_all,    # 전체 후보군 각각의 확률 리스트
+        'result_name' : result_name,  # 모든 전체확률 전체 후보군의 이름 리스트
+        'name' : name                 # 숫자(0 또는 1)에서 변환된 최종 예측 와인 이름
     }
 
     print(f'예측 와인 : {result[0]}')
