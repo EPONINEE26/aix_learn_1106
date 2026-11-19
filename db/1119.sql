@@ -107,6 +107,62 @@ select * from stuscore;
 select * from stuscore where mod(no,2)=0;
 select * from stuscore where mod(no,1)=0;
 
+select * from stuscore;
+select * from board;
+-- 시퀀스 : 번호가 자동으로 증가되는 프로그램 (자동번호발생기). 1씩 증가 
+-- 뒤로 돌리는 기능은 없음
+select board_seq.nextval from dual;
+-- 현재 번호 출력
+select board_seq.currval from dual; 
+-- 시퀀스 생성
+select board2_seq.nextval from dual;
+select stuscore2_seq.currval from dual;
+
+create sequence board2_seq
+increment by 1
+start with 1
+minvalue 1
+maxvalue 9999
+nocycle
+nocache;
+
+-- 테이블 복사 : as select * from stuscore;
+-- 테이블 복사와 함께 데이터 복사를 함께 실행
+create table stuscore2 as select * from stuscore;
+-- 테이블 구조만 복사 실행 (형태만 생성)
+create table stuscore3 as select * from stuscore where 1=2;
+select * from stuscore3;
+
+insert into stuscore3 values (
+board_seq.nextval,'홍길동','신림고',1,190,100,100,99,(100+100+99), (100+100+99)/3,
+'python'
+);
+select * from stuscore3;
+delete stuscore3;
+commit;
+
+-- stuscore2 시퀸스를 101부터 시작 (stuscore_seq를 만들어서 진행함. 다음번호로 101로 지정)
+-- stuscore2 홍길동 학생성적을 입력하기
+insert into stuscore2 values(
+stuscore2_seq.nextval,'홍길동','신림고',1,190,100,100,99,(100+100+99),(100+100+99)/3,
+'python'
+);
+commit;
+insert into stuscore2 values(
+stuscore2_seq.nextval,'홍길동','신림고',1,190,100,100,99,(229),(229)/3,
+'python');
+select * from stuscore2;
+-- select * from stuscore2 where no = 13;
+-- select * from stuscore2 where no = 13 and name = '홍길동';
+-- delete from stuscore2 where no = 14 and name = '홍길동';
+select * from stuscore2;
+select board_seq.nextval from dual;
+
+
+
+
+
+
 
 
 
