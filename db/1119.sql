@@ -306,8 +306,23 @@ create table screen (
 
 select * from screen;
 
+create table searchmovie(
+movieCd char(10),
+movieNm varchar(200),
+movieNmEn varchar(200),
+prdtYear number(4), -- number 로 지정하면 크다 . 작다라는 옵션을 사용 가능함. varchar는 문자열이기에 True/ False 만 사용 가능
+openDt varchar2(10),
+typeNm varchar2(20),
+prdtStatNm varchar2(20),
+nationAlt varchar2(20),
+genreAlt varchar2(200),
+repNationNm varchar2(50), 
+repGenreNm varchar2(50),
+directors varchar2(1000),
+companys varchar2(1000)
+);
 
-
+select * from searchmovie;
 
 
 
