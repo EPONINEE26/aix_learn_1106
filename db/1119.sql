@@ -240,7 +240,6 @@ alter table board2 add primary key (bno);
 
 desc board2;
 
-desc board2;
 -- bno을 primary key로 등록하고 싶음
 -- primary key 로 등록을 하면 다른 곳에서 foreign key로 등록 가능. 그렇지 않음 등록 불가
 alter table board2 add primary key (bno);
