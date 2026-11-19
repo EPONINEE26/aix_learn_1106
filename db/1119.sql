@@ -245,10 +245,66 @@ desc board2;
 alter table board2 add primary key (bno);
 desc board2;
 
+-- drop table board2;
+-- drop table stuscore2;
+-- drop table stuscore3;
 
+create table board2 (
+ bno number(4) primary key,
+ id varchar2(50) not null,
+ btitle varchar2(1000) not null,
+ bcontent clob not null,
+ bgroup number(4),
+ bstep number(4) default 0,
+ bindent number(4) default 0,
+ bhit number(4) default 0,
+ bdate date default sysdate,
+ bfile varchar2(100)
+ );
 
+-- board, board2 테이블 구조가 같음
+-- board의 데이터를 board2로 복사
+insert into board2 select * from board;
+select * from board2;
+commit;
+select board2_seq.currval from dual;
+select board2_seq.nextval from dual;
 
+-- 오라클 (숫자타입, 문자타입, 날짜타입)
+-- number, varchar2, char, clob, date 
+delete board2;
+commit;
+insert into board2 (bno,id,btitle,bcontent,bgroup,bdate) values(
+1, 'aaa','제목','내용',1,sysdate);
+select * from board2;
 
+-- drop table member;
+
+create table member (
+id varchar2(50) primary key,
+pw varchar2(100) not null,
+name varchar2(30) not null,
+nickname varchar2(30),
+tel char(12),
+gender char(6) default '남자',
+hobby varchar2(50) default '게임',
+mdate date default sysdate
+);
+select * from member;
+
+create table screen (
+    sno varchar2(50),
+    rank varchar2(50),
+    title varchar2(1000),
+    sdate date,
+    percent varchar2(50),
+    revenue varchar2(50),
+    crevenue varchar2(50),
+    sales varchar2(50),
+    csales varchar2(50)
+);
+
+select * from screen;
 
 
 
