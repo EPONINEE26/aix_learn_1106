@@ -158,6 +158,94 @@ select * from stuscore2;
 select * from stuscore2;
 select board_seq.nextval from dual;
 
+-- sql 기본 : select, insert, update, delete
+-- 게시판리스트 : select
+-- 게시글입력 : insert into
+-- 게시글수정 : update
+-- 게시글삭제 : delete 
+
+-- select * from stuscore2;
+-- select * from stuscore2 where no = 100 and name = '홍길동';
+-- delete from stuscore2 where no = 100 and name = '홍길동';
+-- commit;
+
+
+-- sql기본 select,insert,update,delete
+-- 게시판리스트 : select   select * from stuscore
+-- 게시글입력 : insert     insert into stuscore values (    )
+-- 게시글수정 : update     update stuscore set name = '홍길자' where no=1
+-- 게시글삭제 : delete     delete stuscore where no=1
+
+select * from stuscore2;
+select board_seq.currval from dual;
+-- 101
+insert into stuscore2 values(
+ stuscore_seq.nextval, '홍길동','신림고',1,190,100,100,90,290,290/3,'python'
+);
+insert into stuscore2 values(
+ stuscore_seq.nextval, '유관순','신림고',1,170,90,90,91,271,271/3,'c'
+);
+commit;
+
+-- select * from stuscore2;
+-- delete stuscore2 where no=37;
+-- update stuscore2 set name = '유관자' where no=102;
+
+-- board 그대로 구조, 데이터 모두 복사해서 board2
+-- 시퀸스 board2 생성해서 시작 101부터 
+-- 1개의 게시글 입력해서 출력하시오
+
+create table board2 as select * from board;
+
+create sequence board2_seq
+increment by 1
+start with 101
+minvalue 1
+maxvalue 999999
+nocycle
+nocache;
+
+select * from board2;
+-- insert 입력컬럼을 선택을 안하려면, 모든 컬럼의 값을 입력해야 함.
+insert into board2 (bno,id,btitle,bcontent,bgroup,bfile) values(
+board2_seq.nextval,'aaa','게시글제목','게시글 내용입니다.',
+board2_seq.currval,'1.jpg'
+);
+commit;
+
+
+-- 속성 : default 0 
+-- board2 를 클릭하여 왼쪽편 연필모양을 클릭하면 수정할수 있는 화면이 팝업이 됨.
+-- 그 안에서 null 값인 bindent 와 bhit를 클릭하여 0으로 변경할 수있음 
+desc board2;
+alter table board2 modify(bstep default 0
+
+insert into board2(bno,id,btitle,bcontent,bgroup,bfile) values(
+board2_seq.nextval,'aaa','제목','내용',
+board2_seq.currval,'1.jpg'
+);
+
+-- 속성 : default 0
+desc board2;
+alter table board2 modify(bstep default 0);
+
+insert into board2(bno,id,btitle,bcontent,bgroup,bfile) values(
+board2_seq.nextval,'aaa','제목','내용',
+board2_seq.currval,'1.jpg'
+);
+select * from board2;
+
+-- bno primary key 등록
+alter table board2 add primary key (bno);
+
+desc board2;
+
+desc board2;
+-- bno을 primary key로 등록하고 싶음
+-- primary key 로 등록을 하면 다른 곳에서 foreign key로 등록 가능. 그렇지 않음 등록 불가
+alter table board2 add primary key (bno);
+desc board2;
+
 
 
 
