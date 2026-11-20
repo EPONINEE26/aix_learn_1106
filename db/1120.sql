@@ -81,3 +81,10 @@ SW특기 varchar2(20),
 합계 number(5),
 평균 number(5,2)
 );
+
+
+
+
+
+
+
