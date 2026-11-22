@@ -66,8 +66,18 @@ specialty varchar2(20),
 total number(5),
 avg number(5,2)
 ); 
+--  아래와 같이 쓰면 합계와 평균 값이 없어도 NULL로는 출력이 안됨. 
+--  NVL(TO_CHAR(total), ' ') AS total, NVL(TO_CHAR(avg), ' ') AS avg
+-- 테이블을 만들때 미리 계산식을 포함하면 계산된 숫자가 합계, 평균자리에 들어감 GENERATED ALWAYS AS " 항상 이 계산식대로 자동 생성된다 라는 의미
+--  total number(5) GENERATED ALWAYS AS (kor + eng + math) VIRTUAL,
+-- avg number(5,2) GENERATED ALWAYS AS (ROUND((kor + eng + math) / 3, 2)) VIRTUAL
+-- 처음 테이블을 생성할 떼  total number(5), avg number(5,2)지정을 한 다음 파일 임포트 후에 update로 수정하면 계산이 되어 숫자가 입력됨
+-- UPDATE stuscore 
+-- SET total = kor + eng + math, avg = ROUND((kor + eng + math) / 3, 2);
+-- 계산이 완료되면 commit;을 꼭 한다.
 
 
+-- 테이블 생성 때 컬럼은 영어로 지정하는 것이 좋음. 추후에 에러가 발생할 가능성이 있기에. 
 create table students (
 번호	number(4) primary key, 
 이름 varchar2(100),
@@ -97,7 +107,11 @@ galSearchKeyword varchar2(1000)
 );
 
 alter table gallary add primary key (no);
+-- drop table gallary; 
 
+
+
+-- gallerylist 로 샤로 생성 
 create table gallerylist (
     gno number(12) primary key,
     galContentId varchar2(8) not null,
@@ -362,7 +376,7 @@ select to_date(galPhotographyMonth,'yyyy-mm') from gallary
 desc gallary;
 select * from gallary;
 
--- 컬럼삭제 
+-- 컬럼삭제 : 컬럼삭제는 복사를 완료 한 다음 처리해야함. 안 그러면 모든 정보가 다 사라지기에 무조건 복사 후에 처리해아힘.
 -- 컬럼이 이미 존재하기에 변경이 불가하여 먼저 타입 변경할 컬럼을 삭제한 다음 컬럼을 생성하여 변경해야함
 alter table gallary
 drop column galphotographymonth;
@@ -409,19 +423,53 @@ galPhotographyMonth=to_date(galPhotographyMonth, 'yyyy-mm');
 
 commit;
 
+-- 테이블 생성 할 때 타입을 잘 못 입력하여 변경해야하는 상황에 처리 방법
+1. 새로운 컬럼 생성 
+alter table gallerylist 
+add (galPhotograpyMonth2, date);
+
+2. 컬럼복사 
+update gallerylist
+set galPhotograpyMonth2=galPhotograpyMonth; 
+
+3. 컬럼 삭제 
+alter table gallerylist
+drop coloumns galPhotograpyMonth; 
+
+4. 이름 변경 
+alter table gallerylist
+rename columns galPhotograpyMonth2 to galPhotograpyMonth; 
+
+5. 컬럼 확인 
+desc gallerylist 
+
 -- 아직 varchar2 타입
 -- 새로운 컬럼 추가 
 alter table gallerylist
 add (GALPHOTOGRAPHYMONTH2 date);
 
+-- 자료를 GALPHOTOGRAPHYMONTH2로 복사 
 update gallerylist
 set GALPHOTOGRAPHYMONTH2=GALPHOTOGRAPHYMONTH;
 
+-- GALPHOTOGRAPHYMONTH 삭제 
 alter table gallerylist
 drop column galphotographymonth;
 
+-- 이름 변경 
 alter table gallerylist
 rename column GALPHOTOGRAPHYMONTH2 to GALPHOTOGRAPHYMONTH;
+
+-- 순서변경 
+alter table gallerylist modify GALPHOTOGRAPHER invisible;
+alter table gallerylist modify GALSEARCHKEYWORD invisible;
+alter table gallerylist modify GALPHOTOGRAPHYLOCATION invisible;
+alter table gallerylist modify GALPHOTOGRAPHYMONTH invisible;
+
+alter table gallerylist modify GALPHOTOGRAPHER visible;
+alter table gallerylist modify GALSEARCHKEYWORD visible;
+alter table gallerylist modify GALPHOTOGRAPHYLOCATION invisible;
+alter table gallerylist modify GALPHOTOGRAPHYMONTH invisible;
 
 desc gallerylist;
 
@@ -445,30 +493,15 @@ alter table gallerylist
 rename column GALCREATEDTIME2 to GALCREATEDTIME;
 desc gallerylist;
 
-desc gallerylist;
 alter table gallerylist modify GALPHOTOGRAPHER invisible;
 alter table gallerylist modify GALSEARCHKEYWORD invisible;
-
-alter table gallerylist modify GALPHOTOGRAPHER visible;
-alter table gallerylist modify GALSEARCHKEYWORD visible;
-
-desc gallerylist;
-
 alter table gallerylist modify GALPHOTOGRAPHYLOCATION invisible;
 alter table gallerylist modify GALPHOTOGRAPHYMONTH invisible;
 
-alter table gallerylist modify GALPHOTOGRAPHYLOCATION visible;
-alter table gallerylist modify GALPHOTOGRAPHYMONTH visible;
-
-desc gallerylist;
-
-alter table gallerylist modify GALPHOTOGRAPHER   invisible;
-alter table gallerylist modify GALSEARCHKEYWORD invisible;
-alter table gallerylist modify GALPHOTOGRAPHYLOCATION invisible;
-
 alter table gallerylist modify GALPHOTOGRAPHER visible;
 alter table gallerylist modify GALSEARCHKEYWORD visible;
-alter table gallerylist modify GALPHOTOGRAPHYLOCATION visible;
+alter table gallerylist modify GALPHOTOGRAPHYLOCATION invisible;
+alter table gallerylist modify GALPHOTOGRAPHYMONTH invisible;
 
 desc gallerylist;
 
