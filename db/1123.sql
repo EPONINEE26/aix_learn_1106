@@ -324,6 +324,241 @@ select emp_name,length(emp_name) from employees;
 -- nvarchar2(4) : 국문이든 영문이든 4글자까지는 사용 가능
 -- BFILE : 파일 업로드인 경우 드라이브에 저장한 다음 varchar2로 지정해서 테이블 생성하면 좋음
 
-select emp_name,length(emp_name) from employees;
+-- member 
+-- 테이블 구조 및 데이터 복사
+create table member2 as select * from member;
+select * from member2;
 
-select email, substr(email,1,2) from employees;
+-- 테이블 구조만 복사 
+create table member3 as select * from member where 1=2;
+select * from member3;
+
+-- 구조가 member테이블과 같을 때에는 아래와 같은 명령어로 입력 가능 
+insert into member3 select * from member; 
+select * from member3;
+commit;
+
+desc member;
+create table member4 (
+mid varchar2(50) not null,
+mname varchar2(30) not null,
+mgender char(6) 
+);
+
+-- 구조가 다르면 하기 코드로 입력 가능
+-- 특정 값에 대한 입력이 불가능하나 두 개의 테이블을 join으로 처리 가능
+-- 100개 모두 입력
+insert into member4 (mid,mname,mgender) select id,name,gender from member;
+
+-- 테이블구조복사, 데이터내용복사
+-- 테이블구조복사
+-- 테이블 생성 후 데이터복사
+-- 컬럼이 다르지만 타입이 같은 테이블의 일부 컬럼을 복사
+-- 테이블 일부구조복사, 데이터복사
+
+-- 테이블 일부구조복사, 데이터복사
+-- 전체 데이트를 다 보여주지 않고 일부 컬럼만 보여줄 수 있을 때 일부구조복사에 데이터만 복사하게 함
+create table member5 as select id,pw,name from member;
+select * from member5;
+select * from employees;
+
+--drop table member2;
+--drop table member3;
+--drop table member4;
+--drop table member5;
+ 
+
+CREATE TABLE bookproduct (
+    product_id         NUMBER(13,0) PRIMARY KEY, -- 기본키 (9791199244375)
+    cover_image_url    VARCHAR2(1000 CHAR),      -- 맨 위 표지 이미지 URL
+    title              VARCHAR2(200 CHAR) NOT NULL, -- 책 제목
+    subtitle           VARCHAR2(300 CHAR),       -- 책 부제목
+    publisher          VARCHAR2(100 CHAR),       -- 출판사
+    published_date     DATE,                     --  발행일
+    sale_price         NUMBER(9,0),              --판매가
+    bookinfo           CLOB,                     -- 책소개
+    book_index         CLOB,                     -- 목차
+    detail_image_url   VARCHAR2(1000 CHAR),      -- 상세이미지
+    writerinfo         CLOB,                     -- 저자 1 소개
+    writerinfo2        CLOB,                     -- 저자 2 소개
+    creator_comment    CLOB,                     -- 만든 이 코멘트
+    into_book          CLOB,                     -- 책 속으로
+    publisher_review   CLOB,                     -- 출판사 리뷰
+    recommendation     CLOB,                     -- 추천평
+    member_reviews     CLOB,                     -- 회원리뷰 6건
+    one_line_review    VARCHAR2(2000)            -- 한줄평 4건
+);
+
+-- drop table bookproduct;
+
+CREATE TABLE bookproduct (
+    isbn13             VARCHAR2(13 CHAR) PRIMARY KEY, --  ISBN13이므로 이름을 맞춤: 9791199244375 
+    cover_image_url    VARCHAR2(1000 CHAR),           -- 맨 위 표지 이미지 URL
+    title              VARCHAR2(200 CHAR) NOT NULL,   -- 책 제목
+    subtitle           VARCHAR2(300 CHAR),            -- 책 부제목
+    authors            VARCHAR2(200 CHAR),            -- 저자 이름 (신숙옥, 이일하)
+    publisher          VARCHAR2(100 CHAR),            -- 출판사
+    published_date     DATE,                          -- 발행일
+    list_price         NUMBER(9,0),                   -- 정가 (21800)
+    sale_price         NUMBER(9,0),                   -- 판매가 (19620)
+    stock_qty          NUMBER(6,0),                   -- 재고 수량 (값은 확인 필요)
+    item_info          VARCHAR2(200 CHAR),            -- 품목정보 (쪽수, 무게, 크기)
+    related_category   VARCHAR2(1000 CHAR),           -- 관련 분류
+    bookinfo           CLOB,                          -- 책소개
+    book_index         CLOB,                          -- 목차
+    detail_image_url   VARCHAR2(1000 CHAR),           -- 상세 이미지 URL
+    writerinfo         CLOB,                          -- 저자 1 소개
+    writerinfo2        CLOB,                          -- 저자 2 소개
+    creator_comment    CLOB,                          -- 만든 이 코멘트
+    into_book          CLOB,                          -- 책 속으로
+    publisher_review   CLOB,                          -- 출판사 리뷰
+    recommendation     CLOB,                          -- 추천평
+    member_reviews     CLOB,                          -- 회원리뷰 6건
+    one_line_review    VARCHAR2(500 CHAR)             -- 한줄평 4건
+);
+
+select * from member;
+-- 현재 월과 같은 월에 등록된 회원을 출력하시오
+select name, mdate from member;
+select trunc(sysdate,'mm') from dual;
+select to_char(sysdate,'mm') from dual;
+select mdate from member 
+where to_char(sysdate, 'mm') = to_char(mdate,'mm');
+
+-- 컬럼추가, 수정, 삭제, 타입변경
+-- 컬럼추가 
+select * from stuscore;
+alter table stuscore add sturank number(3);
+
+desc stuscore;
+
+-- 컬럼수정 
+-- 컬럼 안에 있는 데이터 확인 후 타입 변경 가능 
+-- 컬럼안에 들어가 있는 테이터 타입이 변경이  가능한 형태여야만 타입 변경 가능
+alter table stuscore modify(total varchar2(30));
+alter table stuscore modify(total number(30));
+alter table stuscore modify(total number(5,1));
+desc board3;
+select * from board3;
+update board3 set bstep=null;
+commit;
+-- 컬럼안 데이터를 null 값으로 변경 후 타입 변경이 가능
+alter table board3 modify(bstep varchar2(4));
+
+-- 컬럼삭제
+alter table stuscore drop column sturank;
+desc stuscore;
+
+-- 컬럼이름변경
+alter table stuscore rename column rank to sturank;
+alter table stuscore rename column sturank to rank;
+
+desc stuscore;
+
+-- 무결성 제약조건 
+-- not null : null 을 허용하지 않음
+-- unique : 중복된 값을 허용하지 않음 
+-- primary key : null , 중복된 값 모두 허용하지 않음. NOT NULL 조건과 UNIQUE 조건을 합친 함수
+-- foreign key : 참고로 
+-- check 
+
+create table mem(
+id varchar2(50) primary key,
+pw varchar2(100) not null, 
+name varchar2(20) unique,
+gender varchar2(6)check(gender in('남자','여자')), 
+mdate date default sysdate,
+mfile varchar2(10)
+);
+
+alter table mem add age number(5,2) check (age between 0 and 200);
+
+desc mem;
+insert into mem values(
+'aaa','1111','홍길동','남자',sysdate,'',100 
+);
+
+select * from mem;
+
+insert into mem values(
+'bbb','2222','홍길자','여자',sysdate,'',100 
+); 
+
+insert into mem values(
+'ccc','2222','홍길순','여자',sysdate,'',100 
+); 
+-- 이름이 null 값으로는 입력 가능
+insert into mem values(
+'ddd','1111','','여자',sysdate,'',100 
+); 
+
+select * from mem;
+select * from member;
+
+select * from screen;
+alter table screen add primary key(sno);
+-- sno 컬럼을 삭제하지 않고 primary key를 삭제하는 방법
+alter table screen drop constraint SYS_C008393; 
+-- screen_pk_sno로 primary key로 등록하겠다는 의미
+alter table screen add constraint screen_pk_sno primary key(sno);
+
+select * from mem;
+alter table mem drop constraint SYS_C008390; 
+alter table mem add constraint mem_pk_id primary key(id);
+
+-- foreign key 등록하려면 우선 다른 테이블에서 primary key 등록이 되어있어야 가능
+
+select * from mem;
+select bno from board2 order by bno;
+-- 1~20번까지 id 컬럼에 aaa 
+-- 21~40번까지 id 컬럼에 bbb
+-- 41~60번까지 id 컬럼에 ccc
+-- 61~80번까지 id 컬럼에 ddd
+-- 81~100번까지 id 컬럼에 eee 로 변경하시오
+
+update board set id='aaa' 
+where bno between 1 and 20;
+
+select * from board;
+update board set id='bbb' 
+where bno between 21 and 40;
+
+update board set id='ccc' 
+where bno between 41 and 60;
+
+update board set id='ddd' 
+where bno between 61 and 80;
+
+update board set id='eee' 
+where bno between 81 and 100;
+commit; 
+select * from board order by bno;
+
+-- foreign key 변경 설정 
+-- mem 에 있는 primary key를 foreign key로 변경 설정할 때
+-- 데이터 구조가 동일해야만 변경 설정이 가능함
+alter table board
+add constraint board_fk_id foreign key(id)
+references mem(id) ; 
+
+select * from mem;
+insert into mem values(
+'eee','1111','','여자',sysdate,'',100 
+);
+
+select * from board;
+insert into board values(
+101,'aaa','게시글 제목','게시글내용',101,0,0,0,sysdate,''
+);
+insert into board values(
+101,'abc','게시글 제목','게시글내용',101,0,0,0,sysdate,''
+);
+select * from mem;
+select * from board;
+select * from board2;
+create table member2 as select * from member;
+drop table member2;
+drop table mem;
+
+
+
