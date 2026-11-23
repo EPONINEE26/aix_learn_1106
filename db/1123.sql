@@ -324,7 +324,6 @@ select emp_name,length(emp_name) from employees;
 -- nvarchar2(4) : 국문이든 영문이든 4글자까지는 사용 가능
 -- BFILE : 파일 업로드인 경우 드라이브에 저장한 다음 varchar2로 지정해서 테이블 생성하면 좋음
 
+select emp_name,length(emp_name) from employees;
 
-
-
-
+select email, substr(email,1,2) from employees;
