@@ -426,7 +426,7 @@ commit;
 -- 테이블 생성 할 때 타입을 잘 못 입력하여 변경해야하는 상황에 처리 방법
 1. 새로운 컬럼 생성 
 alter table gallerylist 
-add (galPhotograpyMonth2, date);
+add (galPhotograpyMonth2 date);
 
 2. 컬럼복사 
 update gallerylist
@@ -434,7 +434,7 @@ set galPhotograpyMonth2=galPhotograpyMonth;
 
 3. 컬럼 삭제 
 alter table gallerylist
-drop coloumns galPhotograpyMonth; 
+drop coloumn galPhotograpyMonth; 
 
 4. 이름 변경 
 alter table gallerylist
