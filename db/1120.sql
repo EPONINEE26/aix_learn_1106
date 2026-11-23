@@ -441,7 +441,7 @@ alter table gallerylist
 rename columns galPhotograpyMonth2 to galPhotograpyMonth; 
 
 5. 컬럼 확인 
-desc gallerylist 
+desc gallerylist;
 
 -- 아직 varchar2 타입
 -- 새로운 컬럼 추가 
