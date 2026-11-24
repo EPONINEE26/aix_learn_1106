@@ -392,7 +392,7 @@ CREATE TABLE bookproduct (
 -- drop table bookproduct;
 
 CREATE TABLE bookproduct (
-    isbn13             VARCHAR2(13 CHAR) PRIMARY KEY, --  ISBN13이므로 이름을 맞춤: 9791199244375 
+    product_id         VARCHAR2(13 CHAR) PRIMARY KEY, --  ISBN13이므로 이름을 맞춤: 9791199244375 
     cover_image_url    VARCHAR2(1000 CHAR),           -- 맨 위 표지 이미지 URL
     title              VARCHAR2(200 CHAR) NOT NULL,   -- 책 제목
     subtitle           VARCHAR2(300 CHAR),            -- 책 부제목
@@ -416,6 +416,77 @@ CREATE TABLE bookproduct (
     member_reviews     CLOB,                          -- 회원리뷰 6건
     one_line_review    VARCHAR2(500 CHAR)             -- 한줄평 4건
 );
+
+select * from bookproduct;
+SELECT COUNT(*) FROM BOOKPRODUCT;
+SELECT MIN(PRODUCT_ID), MAX(PRODUCT_ID)
+FROM BOOKPRODUCT;
+-- commit;
+-- DELETE FROM BOOKPRODUCT WHERE PRODUCT_ID BETWEEN 1 AND 1000;
+-- commit;
+
+SELECT COLUMN_NAME, DATA_TYPE, DATA_LENGTH
+FROM USER_TAB_COLUMNS
+WHERE TABLE_NAME = 'BOOKPRODUCT'
+ORDER BY COLUMN_ID;
+
+1. 전체 설정표 (모카루)
+번호	Field Name	Type 선택	Options / 설정	blank (%)
+1	PRODUCT_ID	Row Number	순번 사용. 1,000행이면 1부터 1000까지	0
+2	COVER_IMAGE_URL	Dummy Image URL	가로 최소·최대 240, 세로 최소·최대 360, 이미지 형식 png	0
+3	TITLE	Formula	['도시의 책방','초록의 계절','기록하는 하루'].sample	0
+4	SUBTITLE	Formula	['삶과 사회를 바라보는 이야기','일상 속에서 찾는 의미','사람과 기억을 기록한 책'].sample	0
+5	AUTHORS	Formula	['김서윤','이하준','박서연','정민우','최지안'].sample	0
+6	PUBLISHER	Formula	['새봄출판','푸른문장','다온북스','생각의숲'].sample	0
+7	PUBLISHED_DATE	Datetime	범위 2020-01-01 ~ 2026-11-23, 날짜 형식 yyyy-mm-dd	0
+8	LIST_PRICE	Number	min 20000 / max 30000 / decimals 0	0
+9	SALE_PRICE	Number	min 12000 / max 19000 / decimals 0	0
+10	STOCK_QTY	Number	min 0 / max 100 / decimals 0	0
+11	ITEM_INFO	Formula	['국내도서 / 250쪽 / 무선제본','국내도서 / 320쪽 / 양장본'].sample	0
+12	RELATED_CATEGORY	Formula	['소설','에세이','사회','정치'].sample	0
+13	BOOKINFO	Formula	['삶과 사회의 관계를 살펴보는 책','사람과 기억을 소재로 한 책'].sample	0
+14	BOOK_INDEX	Formula	['프롤로그 / 1장 시작 / 2장 변화 / 에필로그','머리말 / 1부 사람 / 2부 사회 / 맺음말'].sample	0
+15	DETAIL_IMAGE_URL	Dummy Image URL	가로 최소·최대 600, 세로 최소·최대 900, 이미지 형식 png	0
+16	WRITERINFO	Formula	['사회와 문화를 주제로 글을 쓰는 저자','역사와 인권에 관한 글을 집필하는 작가'].sample	0
+17	WRITERINFO2	Formula	['강연과 집필 활동을 이어가고 있음','다양한 분야의 작품을 발표하고 있음'].sample	0
+18	CREATOR_COMMENT	Formula	['독자와 함께 생각할 질문을 담았습니다.','일상의 이야기를 나누고자 이 책을 썼습니다.'].sample	0
+19	INTO_BOOK	Formula	['삶과 사회의 관계를 살펴보는 도서입니다.','사람과 기억을 소재로 한 도서입니다.'].sample	0
+20	PUBLISHER_REVIEW	Formula	['사회와 인간에 관한 내용을 담았습니다.','독자에게 새로운 질문과 생각을 전하는 작품입니다.'].sample	0
+21	RECOMMENDATION	Formula	['사회 문제에 관심 있는 독자에게 추천합니다.','삶과 사람의 이야기를 좋아하는 독자에게 추천합니다.'].sample	0
+22	MEMBER_REVIEWS	Formula	['내용이 흥미롭고 생각할 부분이 많았습니다.','다양한 관점을 접할 수 있었습니다.'].sample	0
+23	ONE_LINE_REVIEW	Formula	['인상적인 책입니다.','추천하고 싶습니다.','다시 읽고 싶습니다.'].sample
+
+
+CREATE TABLE bookproduct (
+    product_id         VARCHAR2(13 CHAR) PRIMARY KEY, -- [수정] isbn13 -> product_id (값은 ISBN13 13자리)
+    cover_image_url    VARCHAR2(1000 CHAR),           -- 맨 위 표지 이미지 URL
+    title              VARCHAR2(200 CHAR) NOT NULL,   -- 책 제목
+    subtitle           VARCHAR2(300 CHAR),            -- 책 부제목
+    authors            VARCHAR2(200 CHAR),            -- 저자 이름
+    publisher          VARCHAR2(100 CHAR),            -- 출판사
+    published_date     DATE,                          -- 발행일
+    list_price         NUMBER(9,0),                   -- 정가
+    sale_price         NUMBER(9,0),                   -- 판매가
+    stock_qty          NUMBER(6,0),                   -- 재고 수량
+    item_info          VARCHAR2(200 CHAR),            -- 품목정보 (쪽수, 무게, 크기)
+    related_category   VARCHAR2(1000 CHAR),           -- 관련 분류
+    bookinfo           CLOB,                          -- 책소개
+    book_index         CLOB,                          -- 목차
+    detail_image_url   VARCHAR2(1000 CHAR),           -- 상세 이미지 URL
+    writerinfo         CLOB,                          -- 저자 1 소개
+    writerinfo2        CLOB,                          -- 저자 2 소개
+    creator_comment    CLOB,                          -- 만든 이 코멘트
+    into_book          CLOB,                          -- 책 속으로
+    publisher_review   CLOB,                          -- 출판사 리뷰
+    recommendation     CLOB,                          -- 추천평
+    member_reviews     CLOB,                          -- 회원리뷰 6건
+    one_line_review    VARCHAR2(500 CHAR)             -- 한줄평 4건
+);
+
+
+   
+
+
 
 select * from member;
 -- 현재 월과 같은 월에 등록된 회원을 출력하시오
