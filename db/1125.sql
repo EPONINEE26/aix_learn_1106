@@ -249,7 +249,7 @@ group by region
 having max(loan_jan_amt) >= 100000
 order by sum(loan_jan_amt) desc;
 
-
+-- 이중으로 select 부분을 넣으면 시간이 많이 소요되기에 최소한의 select를 사용하는 것이 좋음
 select region, sum(loan_jan_amt) as amt from kor_loan_status
 where gubun = '주택담보대출'
 group by region
@@ -258,13 +258,38 @@ having sum(loan_jan_amt) = (
     where gubun = '주택담보대출'
     group by region
 );
-
+-- 검색된 것 중에 1번째 것을 출력하라는 의미
 select region,sum(loan_jan_amt) as amt from kor_loan_status
-where gubun='주택담보대출'
+where gubun=‘주택담보대출’
 group by region
 order by sum(loan_jan_amt) desc
-FETCH FIRST 1 ROW ONLY
+fetch first 1 row only
 ;
+-- 이중쿼리
+select region,sum(loan_jan_amt) as amt from kor_loan_status
+where gubun=‘주택담보대출’
+group by region
+having sum(loan_jan_amt) = (
+select max(sum(loan_jan_amt)) as amt from kor_loan_status
+where gubun=‘주택담보대출’
+group by region
+);
+
+UPDATE stuscore 
+SET total = kor + eng + math,
+    avg = ROUND((kor + eng + math) / 3.0, 2);
+
+-- 이중쿼리
+select * from (
+    select * from stuscore
+    where total > 150)
+where school = '신림고'
+order by total desc;
+
+select * from stuscore
+where total > 150 and school = '신림고'
+order by total desc;
+
 
 
 
