@@ -205,16 +205,15 @@ references mem(id);
 -- on delete cascade : 부모 삭제시, 자식 모두 삭제
 -- on delete set null : 부모 삭제시, 자식 모두 null로 대체
 
--- on delete cascade : 부모삭제시 자식도 모두삭제
 -- 1번째 실행: (기존 제약조건 삭제)
 alter table board drop constraint boardmem_fk_id;
 alter table board add constraint boardmem_fk_id foreign key (id) references mem (id);
 
--- 2번째 실행: (on delete cascade 생성
+-- 2번째 실행: (on delete cascade 부모삭제시 자식값 모두 삭제)
 alter table board add constraint boardmem_fk_id foreign key (id)
 references mem (id) on delete cascade;
 
--- on delete set null : 부모삭제시 자식값 null
+-- 3번째 실행 : (on delete set null : 부모삭제시 자식값 null)
 alter table board drop constraint boardmem_fk_id;
 alter table board add constraint boardmem_fk_id foreign key (id)
 references mem (id) on delete set null;
